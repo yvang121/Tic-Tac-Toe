@@ -1,3 +1,4 @@
+import acm.graphics.GImage;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
@@ -10,16 +11,16 @@ import java.awt.event.MouseEvent;
  *
  */
 public class TicTacToeGame extends GraphicsProgram {
-    private X[][] arrayOfX;
-    private O[][] arrayOfO;
+    private GImage[][] arrayOfX;
+    private GImage[][] arrayOfO;
     private static final int GRID_LINE_DEPTH = 5;
     private static final int GRID_LINE_LENGTH = 615;
     private int numXs = 0;
     private int numOs = 0;
     
     public TicTacToeGame() {
-        this.arrayOfX = new X[3][3];
-        this.arrayOfO = new O[3][3];
+        this.arrayOfX = new GImage[3][3];
+        this.arrayOfO = new GImage[3][3];
     }
 
     public void init() {
@@ -116,19 +117,15 @@ public class TicTacToeGame extends GraphicsProgram {
         printTie();
     }
 
-    public X[][] makeNewX(X[][] arrayOfX, int index1, int index2) {
-        X newX = new X();
-        newX.buildXImage();
-        arrayOfX[index1][index2] = newX;
+    public GImage[][] makeNewX(GImage[][] arrayOfX, int index1, int index2) {
+        arrayOfX[index1][index2] = new GImage("/X.png");
         add(arrayOfX[index1][index2], 5 + (index1*205), 5 + (index2*205));
         numXs++;
         return arrayOfX;
     }
 
-    public O[][] makeNewO(O[][] arrayOfO, int index1, int index2) {
-        O newO = new O();
-        newO.buildOImage();
-        arrayOfO[index1][index2] = newO;
+    public GImage[][] makeNewO(GImage[][] arrayOfO, int index1, int index2) {
+        arrayOfO[index1][index2] = new GImage("/O.png");
         add(arrayOfO[index1][index2], 5 + (index1*205), 5 + (index2*205));
         numOs++;
         return arrayOfO;
