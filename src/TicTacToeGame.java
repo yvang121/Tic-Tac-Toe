@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * Created by Ye Vang on 5/18/2015.
- *
+ * Play Tic-Tac-Toe with a friend!
  */
 public class TicTacToeGame extends GraphicsProgram {
     private GImage[][] arrayOfX;
@@ -17,16 +17,19 @@ public class TicTacToeGame extends GraphicsProgram {
     private static final int GRID_LINE_LENGTH = 615;
     private int numXs = 0;
     private int numOs = 0;
-    
+
+    // Constructor
     public TicTacToeGame() {
         this.arrayOfX = new GImage[3][3];
         this.arrayOfO = new GImage[3][3];
     }
 
+    // Initialize mouse listeners for clicking
     public void init() {
         addMouseListeners();
     }
 
+    // Main run method for GUI
     public void run() {
         setBackground(Color.LIGHT_GRAY);
         Dimension min = new Dimension(620,620);
@@ -35,6 +38,9 @@ public class TicTacToeGame extends GraphicsProgram {
         waitForClick();
     }
 
+    /**
+     * Create the grid with lines
+     */
     private void createGrid() {
         for (int i = 0; i < 4; i++) {
             GRect horizontalLine = new GRect(GRID_LINE_LENGTH, GRID_LINE_DEPTH);
@@ -48,6 +54,10 @@ public class TicTacToeGame extends GraphicsProgram {
         }
     }
 
+    /**
+     * Handles all mouse events based on where the mouse was clicked.
+     * @param event from mouse clicks
+     */
     public void mousePressed(MouseEvent event) {
         if (event.getX() <= 205 && event.getY() <= 205
                 && getElementAt(event.getX(), event.getY()) == null) {
@@ -117,6 +127,13 @@ public class TicTacToeGame extends GraphicsProgram {
         printTie();
     }
 
+    /**
+     * Creates new X GImages to populate the array holding Xs
+     * @param arrayOfX 2d array to hold all Xs
+     * @param index1 outer index
+     * @param index2 inner index
+     * @return 2d Array with newly inserted X GImage
+     */
     public GImage[][] makeNewX(GImage[][] arrayOfX, int index1, int index2) {
         arrayOfX[index1][index2] = new GImage("/X.png");
         add(arrayOfX[index1][index2], 5 + (index1*205), 5 + (index2*205));
@@ -124,6 +141,13 @@ public class TicTacToeGame extends GraphicsProgram {
         return arrayOfX;
     }
 
+    /**
+     * Creates new O GImages to populate array holding Os
+     * @param arrayOfO 2d array holding all Os
+     * @param index1 outer index
+     * @param index2 inner index
+     * @return 2d Array with newly inserted O GImage
+     */
     public GImage[][] makeNewO(GImage[][] arrayOfO, int index1, int index2) {
         arrayOfO[index1][index2] = new GImage("/O.png");
         add(arrayOfO[index1][index2], 5 + (index1*205), 5 + (index2*205));
@@ -131,6 +155,10 @@ public class TicTacToeGame extends GraphicsProgram {
         return arrayOfO;
     }
 
+    /**
+     * Checks to see if player 1 has achieved a winning move of 3 in a row
+     * @return
+     */
     public boolean checkXWin() {
         if (arrayOfX[0][0] != null && arrayOfX[1][0] != null && arrayOfX[2][0] != null) {
             return true;
@@ -152,6 +180,10 @@ public class TicTacToeGame extends GraphicsProgram {
         return false;
     }
 
+    /**
+     * Checks to see if player 2 has won
+     * @return
+     */
     public boolean checkOWin() {
         if (arrayOfO[0][0] != null && arrayOfO[1][0] != null && arrayOfO[2][0] != null) {
             return true;
@@ -173,6 +205,9 @@ public class TicTacToeGame extends GraphicsProgram {
         return false;
     }
 
+    /**
+     * Prints a win statement for the player that won
+     */
     public void printWin() {
         if (checkXWin()) {
             JOptionPane.showMessageDialog(null, "Congratulations! Player X wins! You win an imaginary cookie!",
@@ -188,6 +223,9 @@ public class TicTacToeGame extends GraphicsProgram {
         }
     }
 
+    /**
+     * If no winning move is achieved and the board is full
+     */
     public void printTie() {
         if (!checkOWin() && !checkXWin() && numXs == 5 && numOs == 4) {
             JOptionPane.showMessageDialog(null, "Cat's game! You two are equally clever!",
