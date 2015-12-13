@@ -29,6 +29,10 @@ public class TicTacToeGame extends GraphicsProgram {
         addMouseListeners();
     }
 
+    public static void main(String[] args) {
+        new TicTacToeGame().start(args);
+    }
+
     // Main run method for GUI
     public void run() {
         setBackground(Color.LIGHT_GRAY);
